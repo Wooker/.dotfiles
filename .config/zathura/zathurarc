@@ -1,0 +1,190 @@
+# Zathura configuration file
+# See man `man zathurarc'
+
+set window-height 820
+set window-width 720
+
+# First page on the left side
+set first-page-column 2
+
+# One page per row by default
+set pages-per-row 1
+
+# Zoom and scroll step size
+set zoom-step 20
+#stop at page boundries
+set scroll-page-aware true
+#set scroll-step 1
+set scroll-full-overlap 0.01
+set scroll-step 100
+
+#zoom settings
+set zoom-min 10
+set guioptions ""
+
+#set recolor "false"
+##set recolor-lightcolor "#000000" #00
+##set recolor-lightcolor "#1a1729" #00
+##set recolor-darkcolor "#E0E0E0" #06
+#set recolor-reverse-video "true"
+#set recolor-keephue "false"
+#set recolor-darkcolor       "#50514f" #"#192a51"
+#set recolor-lightcolor      "#f1e0c5" #"#ffebe2"
+
+# Base16 Gruvbox light, soft
+# Author: Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
+
+
+# Copy selection to system clipboard
+set selection-clipboard clipboard
+
+# Enable incremental search
+set incremental-search true
+
+# Mappings
+map <F1> set "pages-per-row 1"
+map <F2> set "pages-per-row 2"
+map <F3> adjust_window best-fit
+map <F4> adjust_window width
+
+# Zoom
+map <C-i> zoom in
+map <C-o> zoom out
+
+# Fullscreen
+unmap f
+map f toggle_fullscreen
+map [fullscreen] f toggle_fullscreen
+
+# Recolor
+unmap c
+map c recolor
+map [fullscreen] c recolor
+
+# Gruvbox dark {{{
+set notification-error-bg       "#282828" # bg
+set notification-error-fg       "#fb4934" # bright:red
+set notification-warning-bg     "#282828" # bg
+set notification-warning-fg     "#fabd2f" # bright:yellow
+set notification-bg             "#282828" # bg
+set notification-fg             "#b8bb26" # bright:green
+
+set completion-bg               "#504945" # bg2
+set completion-fg               "#ebdbb2" # fg
+set completion-group-bg         "#3c3836" # bg1
+set completion-group-fg         "#928374" # gray
+set completion-highlight-bg     "#83a598" # bright:blue
+set completion-highlight-fg     "#504945" # bg2
+
+# Define the color in index mode
+set index-bg                    "#504945" # bg2
+set index-fg                    "#ebdbb2" # fg
+set index-active-bg             "#83a598" # bright:blue
+set index-active-fg             "#504945" # bg2
+
+set inputbar-bg                 "#282828" # bg
+set inputbar-fg                 "#ebdbb2" # fg
+
+set statusbar-bg                "#504945" # bg2
+set statusbar-fg                "#ebdbb2" # fg
+
+set highlight-color             "#fabd2f" # bright:yellow
+set highlight-active-color      "#fe8019" # bright:orange
+
+set default-bg                  "#282828" # bg
+set default-fg                  "#ebdbb2" # fg
+set render-loading              true
+set render-loading-bg           "#282828" # bg
+set render-loading-fg           "#ebdbb2" # fg
+
+# Recolor book content's color
+set recolor-lightcolor          "#282828" # bg
+set recolor-darkcolor           "#ebdbb2" # fg
+set recolor                     "true"
+set recolor-keephue             true      # keep original color
+# }}}
+# Ayu light {{{
+#set notification-error-bg       "#fafafa" # bg
+#set notification-error-fg       "#ff6565" # bright:red
+#set notification-warning-bg     "#fafafa" # bg
+#set notification-warning-fg     "#575f66" # bright:yellow
+#set notification-bg             "#fafafa" # bg
+#set notification-fg             "#eafe84" # bright:green
+#
+#set completion-bg               "#fafafa" # bg2
+#set completion-fg               "#575f66" # fg
+#set completion-group-bg         "#3c3836" # bg1
+#set completion-group-fg         "#928374" # gray
+#set completion-highlight-bg     "#575f66" # bright:blue
+#set completion-highlight-fg     "#fafafa" # bg2
+#
+## Define the color in index mode
+#set index-bg                    "#fafafa" # bg2
+#set index-fg                    "#575f66" # fg
+#set index-active-bg             "#575f66" # bright:blue
+#set index-active-fg             "#fafafa" # bg2
+#
+#set inputbar-bg                 "#fafafa" # bg
+#set inputbar-fg                 "#575f66" # fg
+#
+#set statusbar-bg                "#fafafa" # bg2
+#set statusbar-fg                "#575f66" # fg
+#
+#set highlight-color             "#fff779" # bright:yellow
+#set highlight-active-color      "#ffa3aa" # bright:orange
+#
+#set default-bg                  "#fafafa" # bg
+#set default-fg                  "#575f66" # fg
+#set render-loading              true
+#set render-loading-bg           "#fafafa" # bg
+#set render-loading-fg           "#575f66" # fg
+#
+## Recolor book content's color
+#set recolor-lightcolor          "#fafafa" # bg
+#set recolor-darkcolor           "#575f66" # fg
+#set recolor                     "true"
+#set recolor-keephue             true      # keep original color
+# }}}
+
+# Gruvbox light {{{
+#set notification-error-bg       "#fbf1c7" # bg
+#set notification-error-fg       "#9d0006" # bright:red
+#set notification-warning-bg     "#fbf1c7" # bg
+#set notification-warning-fg     "#b57614" # bright:yellow
+#set notification-bg             "#fbf1c7" # bg
+#set notification-fg             "#79740e" # bright:green
+#
+#set completion-bg               "#d5c4a1" # bg2
+#set completion-fg               "#3c3836" # fg
+#set completion-group-bg         "#ebdbb2" # bg1
+#set completion-group-fg         "#928374" # gray
+#set completion-highlight-bg     "#076678" # bright:blue
+#set completion-highlight-fg     "#d5c4a1" # bg2
+#
+## Define the color in index mode
+#set index-bg                    "#d5c4a1" # bg2
+#set index-fg                    "#3c3836" # fg
+#set index-active-bg             "#076678" # bright:blue
+#set index-active-fg             "#d5c4a1" # bg2
+#
+#set inputbar-bg                 "#fbf1c7" # bg
+#set inputbar-fg                 "#3c3836" # fg
+#
+#set statusbar-bg                "#d5c4a1" # bg2
+#set statusbar-fg                "#3c3836" # fg
+#
+#set highlight-color             "#b57614" # bright:yellow
+#set highlight-active-color      "#af3a03" # bright:orange
+#
+#set default-bg                  "#fbf1c7" # bg
+#set default-fg                  "#3c3836" # fg
+#set render-loading              true
+#set render-loading-bg           "#fbf1c7" # bg
+#set render-loading-fg           "#3c3836" # fg
+#
+## Recolor book content's color
+#set recolor-lightcolor          "#fbf1c7" # bg
+#set recolor-darkcolor           "#3c3836" # fg
+#set recolor                     "true"
+# set recolor-keephue             true      # keep original color
+# }}}
