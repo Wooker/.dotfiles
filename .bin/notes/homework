@@ -1,0 +1,7 @@
+#!/bin/bash
+# Command line argument for class folder
+class=$1
+mainpath=~/Documents/semester_4/$class
+maindoc=$mainpath/Homework.tex
+
+nvim $maindoc

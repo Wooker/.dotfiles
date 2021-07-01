@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+MP3S=('*.mp3')
+FLACS=('*.flac')
+
+for file in $MP3S; do
+	file_flac=$(echo $file | cut -d'.' -f1).flac
+	# Set author
+	author=$(metaflac --show-tag=ARTIST $file_flac | cut -d'=' -f2)
+	echo $author
+	id3v2 -a "${author}" "${file}"
+
+	# Set album
+	album=$(metaflac --show-tag=ALBUM $file_flac | cut -d'=' -f2)
+	echo $album
+	id3v2 -A "${album}" "${file}"
+
+	# Can change this line for specific filenames
+	title=$(metaflac --show-tag=TITLE $file_flac | cut -d'=' -f2)
+	echo $title
+	id3v2 -t "${title}" "${file}"
+
+	# Set number
+	num=$(metaflac --show-tag=TRACKNUMBER $file_flac | cut -d'=' -f2)
+	echo $num
+	id3v2 -T "${num}" "${file}"
+done

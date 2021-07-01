@@ -1,0 +1,3 @@
+#!/usr/bin/fish
+
+betterlockscreen -s dimblur

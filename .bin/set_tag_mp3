@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+MP3S=('*.mp3')
+
+counter=0
+
+for file in $MP3S; do
+
+	# Set title
+	echo $file
+	# Can change this line for specific filenames
+	title=$(echo $file | cut -d'-' -f2 | cut -d' ' -f2- | cut -d'.' -f1)
+	echo $title
+	id3v2 -t "${title}" "${file}"
+
+	# Set number
+	num=$(echo $file | cut -d'-' -f1 | cut -d' ' -f1)
+	counter=$((counter + 1))
+	echo $counter
+	id3v2 -T "${counter}" "${file}"
+done

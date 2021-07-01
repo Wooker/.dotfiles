@@ -1,0 +1,5 @@
+#!/bin/bash
+
+URL=$(xclip -sel c -o)
+
+mpv --force-window=immediate --geometry=840x480 --ytdl-format=mp4 "${URL}" & disown

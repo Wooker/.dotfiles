@@ -1,0 +1,11 @@
+#!/bin/bash
+# Command line argument for class folder
+class=$1
+lec_num=$2
+mainpath=~/Documents/semester_4/$class/Notes
+currentpath=`pwd`
+
+cd $mainpath
+yes R | xelatex $mainpath/Notes.tex > /dev/null
+zathura $mainpath/Notes.pdf &
+cd $currentpath

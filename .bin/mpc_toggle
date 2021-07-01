@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+state=`mpc | grep playing | wc -l`
+
+if [[ $state -eq 1 ]]; then
+    mpc pause > /dev/null
+
+else
+    mpc play > /dev/null
+    song_display.sh
+
+fi
+
+exit 0

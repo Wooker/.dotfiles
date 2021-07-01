@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+case "$1" in
+    "next") mpc next &>/dev/null ;;
+    "prev") mpc prev &>/dev/null ;;
+
+    "toggle") mpc_toggle; exit ;;
+
+    *) printf "%s\n" "Usage: ./song next, ./song prev"; exit ;;
+esac 
+
+#notify-send.sh -t 1 -r 112 "Song: $(mpc current)"
+song_display.sh

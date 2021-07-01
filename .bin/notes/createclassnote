@@ -1,0 +1,16 @@
+#!/bin/bash
+# Command line argument for class folder
+class=$1
+mainpath=~/Documents/semester_4/$class
+notespath=$mainpath/Notes
+
+
+
+cp -r ~/Templates/LaTeX-Templates/Notes/ $mainpath
+
+preamble=$class"Preamble.tex"
+mv $notespath/NotesPreamble.tex $mainpath/Notes/$preamble
+
+rm $notespath/Notes_example.pdf
+mv $notespath/Notes_example.tex $mainpath/Notes/Notes.tex
+

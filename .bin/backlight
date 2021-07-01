@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+import re
+import sys
+
+if len(sys.argv) < 2:
+    print('Please enter an operation, i.e. +5 or -42')
+    sys.exit(1)
+
+min_brightness = 0
+
+with open('/sys/class/backlight/intel_backlight/max_brightness', 'r') as file:
+    max_brightness = int(file.read())
+
+with open('/sys/class/backlight/intel_backlight/brightness', 'r') as file:
+    current_brightness = int(file.read())
+
+pattern = re.compile(r'(\+|-)(\d+)')
+match = pattern.search(sys.argv[1])
+if match:
+    if match.group(1) == '+':
+        current_brightness += int(match.group(2))
+        if current_brightness > max_brightness:
+            current_brightness = max_brightness
+    else:
+        current_brightness -= int(match.group(2))
+        if current_brightness < min_brightness:
+            current_brightness = min_brightness
+
+with open('/sys/class/backlight/intel_backlight/brightness', 'w') as file:
+    file.write(str(current_brightness))

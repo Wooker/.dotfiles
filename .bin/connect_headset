@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+# connect_headset - connect headset via bluetoothctl
+
+E8="E8"
+E8_MAC="FC:58:FA:39:82:83"
+E8_SINK=$(echo $E8_MAC|tr ':' '_')
+
+SONY="SONY"
+SONY_MAC="00:18:09:EE:80:5C"
+SONY_SINK=$(echo $SONY_MAC|tr ':' '_')
+
+DISCONN="DISCONNECT"
+
+rofi_command="rofi -theme themes/connect_headset.rasi"
+options="$E8\n$SONY\n$DISCONN"
+
+CONNECTED="Audio connection established."
+PROBLEM="Unable to connect the device"
+
+bluetoothctl -- power on
+
+chosen="$(echo -e "$options" | $rofi_command -p "" -dmenu -selected-row 0)"
+case $chosen in
+    $E8)
+		bluetoothctl -- connect $E8_MAC
+		if [ $? -eq 0 ]
+		then
+			dunstify -t 3000 "E8 $E8_MAC" "$CONNECTED" -u low -a connect_headset
+			pactl set-card-profile bluez_card.$E8_SINK a2dp_sink
+		else
+			dunstify -t 3000 "$PROBLEM" "$E8 $E8_MAC" -u critical -a connect_headset
+		fi
+        ;;
+    $SONY)
+		bluetoothctl -- connect $SONY_MAC
+		if [ $? -eq 0 ]
+		then
+			dunstify -t 3000 "SONY WI-C300 $SONY_MAC" "$CONNECTED" -u low -a connect_headset
+			pactl set-card-profile bluez_card.$SONY_SINK a2dp_sink
+		else
+			dunstify -t 3000 "$PROBLEM" "$SONY $SONY_MAC" -u critical -a connect_headset
+		fi
+        ;;
+	$DISCONN)
+		bluetoothctl -- power off
+		if [ $? -eq 0 ]
+		then
+			dunstify -t 3000 "Bluetooth disabled" -u low -a connect_headset
+		else
+			dunstify -t 3000 "Problem disconnecting bluetooth" -u critical -a connect_headset
+		fi
+		;;
+esac

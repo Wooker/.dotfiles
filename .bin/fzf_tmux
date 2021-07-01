@@ -1,0 +1,5 @@
+#!/usr/bin/fish
+
+set DIR "~/stuff/*"
+
+cd (find -maxdepth 3 -type d -path "./stuff/*" -o -path "./.config/*" -o -path "./work/*" | fzf) && tmux

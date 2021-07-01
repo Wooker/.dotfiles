@@ -1,0 +1,25 @@
+#!/bin/bash
+# Command line argument for class folder
+class=$1
+mainpath=~/Documents/semester_4/$class/Notes
+maindoc=$mainpath/Notes.tex
+lecpath=$mainpath/Lecture
+
+# Find the first lecture number that doesn't already exist
+i=1
+while [[ -e $lecpath/$i.tex ]] ; do
+	let i++
+done
+# Copy template lecture file
+cp $lecpath/x:tex $lecpath/$i.tex #Create new Lecture file
+
+# Get the length of the main Notes.tex file
+lines=`awk 'END {print NR}' $maindoc`
+# String to be inserted into main Notes.tex file
+insert='\import{Lecture/}{'$i'}'
+#Add string to Notes.tex
+sed -i ''$((lines - 1))$'i\\\\\\'$insert'' $maindoc
+
+# Open new Lecture file for editing
+# Start editing new file (this is used for my nvim setup)
+nvim $lecpath/$i.tex

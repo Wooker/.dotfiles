@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# close_ap - create_ap script. Disables access point.
+
+close_ap --stop wlp2s0

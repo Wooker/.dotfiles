@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+files=('*')
+
+for file in $files; do
+	# Remove spaces and numbers from the end
+	new_file=$(echo ${file// /_} | cut -d'-' -f1,2).mp3
+	# Rename
+	mv "${file}" "${new_file//_/ }"
+done
