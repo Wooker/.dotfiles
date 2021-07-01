@@ -1,0 +1,65 @@
+#!/bin/bash
+
+window_id="$1"
+window_class="$2"
+window_instance="$3"
+consequences="$4"
+
+window_title="$(xwininfo -id "$window_id" | sed ' /^xwininfo/!d ; s,.*"\(.*\)".*,\1,')"
+#title=$(xtitle "$window_id")
+#notify-send $window_title
+#notify-send $window_class
+#notify-send $window_instance
+
+if [ "$window_instance" = "telegram-desktop" ] ; then
+	case "$window_title" in
+		Media\ viewer|Choose\ files)
+			eval "$consequences"
+			[ "$state" ] || echo "state=floating"
+			eval "$consequences"
+			[ "$state" ] || echo "focus=on"
+			;;
+		Telegram*)
+			#notify-send $window_instance
+			eval "$consequences"
+			[ "$state" ] || echo "state=pseudo_tiled"
+			;;
+	esac
+fi
+
+if [ "$window_instance" = "skype" ] ; then
+	case "$window_title" in
+		Skype)
+			eval "$consequences"
+			[ "$state" ] || echo "focus=off"
+			eval "$consequences"
+			[ "$state" ] || echo "state=floating"
+			;;
+	esac
+fi
+
+case "$window_title" in
+	ncmpcpp|calcurse|Volume\ Control|btm|mpv|Game)
+		eval "$consequences"
+		[ "$state" ] || echo "state=floating"
+		echo "center=on"
+		;;
+	Spotify*)
+		eval "$consequences"
+		[ "$state" ] || echo "state=pseudo_tiled"
+		;;
+esac
+
+case "$window_class" in
+	mpv)
+		eval "$consequences"
+		[ "$state" ] || echo "state=floating"
+		;;
+esac
+
+if [ "$window_instance" = "qjackctl" ] ; then
+	notify-send "Hello"
+	eval "$consequences"
+	[ "$state" ] || echo "state=floating"
+	#;;
+fi
