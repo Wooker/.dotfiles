@@ -25,10 +25,11 @@ set showmatch matchtime=2
 set ttimeoutlen=10
 
 " Folding
-set foldmethod=marker
+set foldmethod=syntax
 filetype plugin indent on
 "hi Folded term=NONE cterm=NONE
 "hi Folded guibg=NONE cterm=NONE
 
-set shortmess+=c
 set completeopt=menuone,noinsert,noselect
+set shortmess+=c
+set switchbuf+=usetab,newtab

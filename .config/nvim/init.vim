@@ -9,8 +9,15 @@ call plug#begin()
 	Plug 'ayu-theme/ayu-vim'
 " Tools
 	Plug 'neovim/nvim-lspconfig'
-	Plug 'kabouzeid/nvim-lspinstall'
-	Plug 'nvim-lua/completion-nvim'
+	Plug 'williamboman/nvim-lsp-installer'
+	Plug 'hrsh7th/cmp-nvim-lsp', {'branch': 'main'}
+	Plug 'hrsh7th/cmp-buffer', {'branch': 'main'}
+	Plug 'hrsh7th/cmp-path', {'branch': 'main'}
+	Plug 'hrsh7th/cmp-cmdline', {'branch': 'main'}
+	Plug 'hrsh7th/nvim-cmp', {'branch': 'main'}
+
+	Plug 'chrisbra/unicode.vim'
+	Plug 'nvim-lua/lsp_extensions.nvim'
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 	"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	"Plug 'mhinz/vim-startify'
@@ -18,31 +25,41 @@ call plug#begin()
 	Plug 'junegunn/goyo.vim'
 	Plug 'junegunn/limelight.vim'
 	Plug 'vim-airline/vim-airline'
-	Plug 'donRaphaco/neotex', { 'for': 'tex' }
+	"Plug 'donRaphaco/neotex', { 'for': 'tex' }
 	"Plug 'lervag/vimtex'
+	Plug 'jose-elias-alvarez/nvim-lsp-ts-utils', {'branch': 'main'}
+	Plug 'jakewvincent/texmagic.nvim', {'branch': 'main'}
 	Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 	Plug 'vimwiki/vimwiki'
+	Plug 'lambdalisue/suda.vim'
 
+	" lsp
 	Plug 'euclidianAce/BetterLua.vim'
 	Plug 'nvim-lua/plenary.nvim'
 	Plug 'nvim-lua/popup.nvim'
+	Plug 'RishabhRD/lspactions'
 	Plug 'ThePrimeagen/harpoon'
 	Plug 'nvim-telescope/telescope.nvim'
 	Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 	Plug 'HerringtonDarkholme/yats.vim'
+	Plug 'kristijanhusak/orgmode.nvim'
+	Plug 'sbdchd/neoformat'
+	Plug 'tami5/lspsaga.nvim', {'branch': 'nvim6.0'}
+	Plug 'pantharshit00/vim-prisma'
+
 " Languages
-	Plug 'rust-lang/rust.vim'
-	Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
-	Plug 'jose-elias-alvarez/null-ls.nvim'
-	Plug 'ron-rs/ron.vim'
-	Plug 'octol/vim-cpp-enhanced-highlight'
+	Plug 'simrat39/rust-tools.nvim'
+	Plug 'p00f/clangd_extensions.nvim'
+
+
+	Plug 'elkowar/yuck.vim'
+	Plug 'jose-elias-alvarez/null-ls.nvim', {'branch': 'main'}
 	Plug 'sirtaj/vim-openscad'
-	Plug 'andys8/vim-elm-syntax'
-	Plug 'artur-shaik/vim-javacomplete2'
-	Plug 'mxw/vim-prolog'
 	Plug 'dag/vim-fish'
-    Plug 'neoclide/jsonc.vim'
+	Plug 'andys8/vim-elm-syntax'
 	Plug 'tomlion/vim-solidity'
+	Plug 'mxw/vim-jsx'
+	Plug 'pangloss/vim-javascript'
 	"Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
 call plug#end()
 " }}}
@@ -53,13 +70,13 @@ source $HOME/.config/nvim/plugins.vim
 " Functions{{{
 " Ayu colorscheme
 function! Ayu()
-	colorscheme gruvbox
-	set background=dark
+	colorscheme ayu
+	set background=light
 endfunction
 " Gruvbox colorscheme
 function! Gruvbox()
-	colorscheme gruvbox
-	set background=dark
+	colorscheme ayu
+	set background=light
 endfunction
 "}}}
 " Groups and autocomands{{{
@@ -77,6 +94,12 @@ autocmd FileType java JCEnable
 
 " R
 au BufNewFile,BufRead Renviron, *.Rprofile, *.Rhistory setf r
+
+" JS
+"au BufWritePre *.js Neoformat
+autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
+
+au BufWritePre tex call TexlabBuild
 
 "}}}
 " Commands{{{
@@ -125,5 +148,18 @@ nnoremap <silent> <C-c> :nohlsearch<CR><C-L>
 
 " Conceal
 "nnoremap <silent> <C-c><C-y> :call ToggleConcealLevel()<CR>
+
+nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+
+nnoremap <silent> gf    <cmd>tabfind <cfile><CR>
+
+nnoremap <leader>ar :lua require'lspactions'.rename()<CR>
 
 "}}}
